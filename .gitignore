@@ -18,7 +18,7 @@ bin/
 !**/src/test/**/bin/
 
 ### IntelliJ IDEA ###
-src/main/java/.DS_Store
+*.DS_Store
 http-client.private.env.json
 .idea
 *.yml
