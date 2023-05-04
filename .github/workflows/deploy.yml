@@ -33,7 +33,16 @@ jobs:
       with:
         java-version: 17
         distribution: 'adopt'
-        
+
+      # production용 yml 생성
+    - name: make application.yml
+      run: |
+          # create application.yml
+          cd ./src/main/resources
+          # application.yml 파일에 쓰기
+          echo "${{ secrets.DATABASE }}" >> ./application.yml
+        shell: bash
+
     # (3) Gradle build (Test 제외)
     - name: Build with Gradle
       uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
