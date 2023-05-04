@@ -1,13 +1,17 @@
 package com.msedonald.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class GameController {
 
-    @RequestMapping("/api/test")
+    @GetMapping("/api/test")
     public String startGame() {
         return "test api";
+    }
+
+    @PostMapping("/api/post")
+    public String postTest(@RequestBody String str) {
+        return "POST ok" + str;
     }
 }
