@@ -41,7 +41,7 @@ jobs:
           mkdir ./src/main/resources
           cd ./src/main/resources
           # application.yml 파일에 쓰기
-          echo "${{ secrets.DATABASE }}" >> ./application.yml
+          echo "${{ secrets.APPLICATION_YML }}" >> ./application.yml
       shell: bash
 
     # (3) Gradle build (Test 제외)
