@@ -38,6 +38,7 @@ jobs:
     - name: make application.yml
       run: |
           # create application.yml
+          mkdir ./src/main/resources
           cd ./src/main/resources
           # application.yml 파일에 쓰기
           echo "${{ secrets.DATABASE }}" >> ./application.yml
