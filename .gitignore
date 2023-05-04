@@ -22,6 +22,7 @@ bin/
 http-client.private.env.json
 .idea
 *.yml
+src/main/resources/*.yml
 *.iws
 *.iml
 *.ipr
