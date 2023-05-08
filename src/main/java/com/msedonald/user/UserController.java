@@ -1,4 +1,4 @@
-package com.msedonald.controller;
+package com.msedonald.user;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

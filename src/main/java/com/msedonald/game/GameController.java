@@ -1,4 +1,4 @@
-package com.msedonald.controller;
+package com.msedonald.game;
 
 import org.springframework.web.bind.annotation.*;
 

@@ -1,4 +1,4 @@
-package com.msedonald.domain;
+package com.msedonald.user;
 
 import jakarta.persistence.*;
 

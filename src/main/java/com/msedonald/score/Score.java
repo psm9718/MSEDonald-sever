@@ -1,5 +1,6 @@
-package com.msedonald.domain;
+package com.msedonald.score;
 
+import com.msedonald.user.User;
 import jakarta.persistence.*;
 
 import static jakarta.persistence.FetchType.*;

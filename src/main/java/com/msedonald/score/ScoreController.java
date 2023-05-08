@@ -1,4 +1,4 @@
-package com.msedonald.controller;
+package com.msedonald.score;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
