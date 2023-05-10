@@ -4,11 +4,13 @@ import com.msedonald.user.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import static jakarta.persistence.FetchType.*;
 
 @Entity
+@Getter
 @Table(name = "results")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Result {

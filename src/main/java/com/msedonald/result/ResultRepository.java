@@ -1,6 +1,6 @@
 package com.msedonald.result;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ResultRepository extends CrudRepository<Result, Long> {
+public interface ResultRepository extends JpaRepository<Result, Long> {
 }
