@@ -26,9 +26,9 @@ public class ResultService {
 
         resultRepository.save(
                 Result.builder()
-                .score(resultSave.score())
-                .user(user)
-                .build()
+                        .score(resultSave.score())
+                        .user(user)
+                        .build()
         );
     }
 

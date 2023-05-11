@@ -4,9 +4,6 @@ import lombok.Builder;
 
 import java.time.LocalDateTime;
 
-public record MessageDTO(LocalDateTime timestamp, String sender, String channelId, String data) {
-
-    @Builder
-    public MessageDTO {
-    }
+@Builder
+public record MessageDTO(LocalDateTime timestamp, String sender, String receiver, String data) {
 }

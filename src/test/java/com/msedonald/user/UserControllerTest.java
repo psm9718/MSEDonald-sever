@@ -1,19 +1,13 @@
 package com.msedonald.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.msedonald.result.ResultController;
-import com.msedonald.result.ResultRepository;
-import com.msedonald.result.ResultService;
 import com.msedonald.user.data.UserLogin;
 import com.msedonald.user.data.UserSave;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -31,7 +31,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
         MessageDTO messageDTO = MessageDTO.builder()
                 .sender(sessionId)
-                .channelId("broadcast")
+                .receiver("broadcast")
                 .timestamp(LocalDateTime.now())
                 .data("Welcome!")
                 .build();
@@ -86,7 +86,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
         MessageDTO messageDTO = MessageDTO.builder()
                 .sender(sessionId)
-                .channelId("broadcast")
+                .receiver("broadcast")
                 .timestamp(LocalDateTime.now())
                 .data("Good bye!")
                 .build();
