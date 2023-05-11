@@ -1,7 +1,9 @@
 package com.msedonald.user;
 
+import com.msedonald.user.data.UserSave;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,4 +18,19 @@ public class User {
     private Long id;
 
     private String username;
+
+    private String password;
+
+    @Builder
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public static User createUser(UserSave userSave) {
+        return User.builder()
+                .username(userSave.username())
+                .password(userSave.password())
+                .build();
+    }
 }

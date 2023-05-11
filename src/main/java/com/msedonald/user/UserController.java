@@ -1,16 +1,18 @@
 package com.msedonald.user;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.msedonald.user.data.UserSave;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequiredArgsConstructor
 public class UserController {
 
-    @PostMapping("/api/users")
-    public void signup() {
+    private final UserService userService;
 
+    @PostMapping("/api/users")
+    public void signup(@RequestBody UserSave userSave) {
+        userService.save(userSave);
     }
 
     @GetMapping("/api/users")
