@@ -21,6 +21,7 @@ public class UserService {
     private final Map<String, Long> sessoinMap = new ConcurrentHashMap<>();
     private final UserRepository userRepository;
 
+    @Transactional
     public void save(UserSave userSave) {
         userRepository.save(User.createUser(userSave));
         log.info("> user {} saved in DB", userSave.username());

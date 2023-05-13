@@ -1,0 +1,8 @@
+### user save
+POST {{address}}/api/users
+Content-Type: application/json
+
+{
+  "username" : "tester",
+  "password" : "password"
+}
