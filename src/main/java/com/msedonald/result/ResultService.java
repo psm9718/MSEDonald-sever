@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -19,6 +18,7 @@ public class ResultService {
     private final UserRepository userRepository;
     private final ResultRepository resultRepository;
 
+    @Transactional
     public void save(ResultSave resultSave) {
 
         User user = userRepository.findById(resultSave.userId())
@@ -34,7 +34,7 @@ public class ResultService {
 
     public List<ResultResponse> getAllResults() {
         return resultRepository.findAll().stream()
-                .map(result -> new ResultResponse(result))
-                .collect(Collectors.toList());
+                .map(ResultResponse::new)
+                .toList();
     }
 }
