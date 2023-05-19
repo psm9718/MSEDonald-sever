@@ -25,7 +25,9 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
 
         log.info("auth : {}", authorization);
 
-
-        return null;
+        return UserAuth.builder()
+                .id(1L)
+                .username("tester")
+                .build();
     }
 }

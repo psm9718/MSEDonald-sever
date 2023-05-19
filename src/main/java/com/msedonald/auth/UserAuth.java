@@ -7,12 +7,10 @@ import lombok.Getter;
 public class UserAuth {
     private final Long id;
     private final String username;
-    private final String password;
 
     @Builder
-    public UserAuth(Long id, String username, String password) {
+    public UserAuth(Long id, String username) {
         this.id = id;
         this.username = username;
-        this.password = password;
     }
 }
