@@ -21,7 +21,7 @@ public class UserController {
         userService.save(userSave);
     }
 
-    @GetMapping("/api/users")
+    @PostMapping("/api/users/login")
     @Operation(summary = "user login", description = "response with access token to auth")
     public Map<String, String> login(@RequestBody UserLogin userLogin) {
         String token = userService.login(userLogin);
