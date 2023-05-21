@@ -12,7 +12,6 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-
         boolean isAnnotation = parameter.getParameterAnnotation(LoginUser.class) != null;
         boolean isUserAuth = parameter.getParameterType().equals(UserAuth.class);
 
@@ -22,12 +21,15 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         String authorization = webRequest.getHeader("Authorization");
+        log.info("auth: {}", authorization);
 
-        log.info("auth : {}", authorization);
+        if (authorization == null || authorization.isEmpty()) {
+            throw new IllegalArgumentException("User not found");
+        }
 
         return UserAuth.builder()
                 .id(1L)
-                .username("tester")
+                .username(authorization)
                 .build();
     }
 }

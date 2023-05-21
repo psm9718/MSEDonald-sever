@@ -6,3 +6,8 @@ Content-Type: application/json
   "username" : "tester",
   "password" : "password"
 }
+
+### user auth
+GET {{address}}/api/test/auth
+Content-Type: application/json
+Authorization: hello

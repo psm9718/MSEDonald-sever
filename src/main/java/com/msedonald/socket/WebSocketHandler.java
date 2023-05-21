@@ -30,10 +30,9 @@ public class WebSocketHandler extends TextWebSocketHandler {
         log.info("session start : {}", sessionId);
 
         MessageDTO messageDTO = MessageDTO.builder()
-                .sender(sessionId)
-                .receiver("broadcast")
+                .token("player_joined")
                 .timestamp(LocalDateTime.now())
-                .data("Welcome!")
+                .data("Let's start game!")
                 .build();
 
         sessions.values().forEach(s -> {
@@ -56,7 +55,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
         MessageDTO messageDTO = objectMapper.readValue(payload, MessageDTO.class);
         log.info("> session : {} , user : {} ({})",
-                session.getId(), messageDTO.sender(), messageDTO.timestamp());
+                session.getId(), messageDTO.token(), messageDTO.timestamp());
 
         sessions.values().forEach(s -> {
                     try {
@@ -67,12 +66,6 @@ public class WebSocketHandler extends TextWebSocketHandler {
                     }
                 }
         );
-
-//        WebSocketSession receiver = sessions.get(session.getId());
-//        if (receiver != null && receiver.isOpen()) {
-//            receiver.sendMessage(new TextMessage(objectMapper.writeValueAsString(messageDTO)));
-//            log.info("> message sent to {}", receiver.getId());
-//        }
     }
 
     @Override
@@ -85,8 +78,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
         sessions.remove(sessionId);
 
         MessageDTO messageDTO = MessageDTO.builder()
-                .sender(sessionId)
-                .receiver("broadcast")
+                .token("testToken")
                 .timestamp(LocalDateTime.now())
                 .data("Good bye!")
                 .build();

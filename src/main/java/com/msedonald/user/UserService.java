@@ -8,9 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 @Service
@@ -18,7 +16,6 @@ import java.util.concurrent.ConcurrentHashMap;
 @RequiredArgsConstructor
 public class UserService {
 
-    private final Map<String, Long> sessoinMap = new ConcurrentHashMap<>();
     private final UserRepository userRepository;
 
     @Transactional
@@ -37,7 +34,6 @@ public class UserService {
     }
 
     public void expire(String accessToken) {
-        sessoinMap.remove(accessToken);
         log.info("> token {} successfully expired [{}]", accessToken, LocalDateTime.now());
     }
 }

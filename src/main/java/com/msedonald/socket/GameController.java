@@ -26,15 +26,4 @@ public class GameController {
         log.info("> auth access : {}", userAuth.getUsername());
         return "authenticated access";
     }
-
-//    @MessageMapping("/api/enter")
-//    public void enterGame(@RequestBody MessageDTO messageRequest) {
-//
-//    }
-//
-//    @MessageMapping("/api/message")
-//    public void send() {
-//
-//    }
-
 }
