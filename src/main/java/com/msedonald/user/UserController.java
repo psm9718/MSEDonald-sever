@@ -26,7 +26,7 @@ public class UserController {
     public Map<String, String> login(@RequestBody UserLogin userLogin) {
         String token = userService.login(userLogin);
         Map<String, String> responseMap = new HashMap<>();
-        responseMap.put("access token", token);
+        responseMap.put("access_token", token);
 
         return responseMap;
     }
