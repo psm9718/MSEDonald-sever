@@ -1,5 +1,6 @@
 package com.msedonald.auth;
 
+import com.msedonald.exception.UnAuthorizedException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
@@ -28,16 +29,16 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
         log.info("auth: {}", authToken);
 
         if (authToken == null || authToken.isEmpty()) {
-            throw new IllegalArgumentException("User not found");
+            throw new UnAuthorizedException();
         }
 
-        if (jwtProvider.isValidateToken(authToken)){
+        if (jwtProvider.isValidateToken(authToken)) {
             return UserAuth.builder()
                     .id(jwtProvider.getUserIdFromJwt(authToken))
                     .username(jwtProvider.getUsernameFromJwt(authToken))
                     .build();
         }
 
-        throw new RuntimeException("UnAuthorized");
+        throw new UnAuthorizedException();
     }
 }

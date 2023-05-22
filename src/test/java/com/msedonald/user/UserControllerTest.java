@@ -1,6 +1,7 @@
 package com.msedonald.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.msedonald.exception.UserNotFoundException;
 import com.msedonald.user.data.UserLogin;
 import com.msedonald.user.data.UserSave;
 import org.junit.jupiter.api.DisplayName;
@@ -49,7 +50,7 @@ class UserControllerTest {
                 .andDo(print());
 
         User user = userRepository.findByUsernameAndPassword(userSave.username(), userSave.password())
-                .orElseThrow(() -> new RuntimeException());
+                .orElseThrow(UserNotFoundException::new);
         assertThat(user.getUsername()).isEqualTo(userSave.username());
     }
 
@@ -70,7 +71,7 @@ class UserControllerTest {
         //expected
         mockMvc.perform(get("/api/users")
                         .contentType(APPLICATION_JSON)
-                        .content( objectMapper.writeValueAsString(userLogin)))
+                        .content(objectMapper.writeValueAsString(userLogin)))
                 .andExpect(status().isOk())
                 .andDo(print());
     }

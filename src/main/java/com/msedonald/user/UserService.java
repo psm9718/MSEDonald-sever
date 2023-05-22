@@ -1,6 +1,7 @@
 package com.msedonald.user;
 
 import com.msedonald.auth.JwtProvider;
+import com.msedonald.exception.UserNotFoundException;
 import com.msedonald.user.data.UserLogin;
 import com.msedonald.user.data.UserSave;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class UserService {
 
     public String login(UserLogin userLogin) {
         User user = userRepository.findByUsernameAndPassword(userLogin.getUsername(), userLogin.getPassword())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(UserNotFoundException::new);
 
         log.info("> user {} login to server [ {} ]", user.getUsername(), user.getId());
 

@@ -6,8 +6,8 @@ import lombok.Getter;
 @Getter
 public class ResultResponse {
 
-    private Long score;
-    private String username;
+    private final Long score;
+    private final String username;
 
     public ResultResponse(Result result) {
         this.score = result.getScore();
