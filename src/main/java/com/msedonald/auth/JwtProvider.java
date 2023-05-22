@@ -1,8 +1,6 @@
 package com.msedonald.auth;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,10 +46,25 @@ public class JwtProvider {
         return getClaimsJws(authToken).getBody().get("username", String.class);
     }
 
+    public boolean isValidateToken(String authToken) {
+        try {
+            getClaimsJws(authToken);
+            return true;
+        } catch (ExpiredJwtException e) {
+            log.info(">> Your Access Token is expired");
+            throw new RuntimeException("ATK Expired");
+        } catch (JwtException | IllegalArgumentException e) {
+            log.error("jwtException : {}", e.getMessage());
+        }
+        throw new RuntimeException("UnAuthorized");
+    }
+
     private Jws<Claims> getClaimsJws(String authToken) {
         return Jwts.parserBuilder()
                 .setSigningKey(decodeBase64(jwtSecret))
                 .build()
                 .parseClaimsJws(authToken);
     }
+
+
 }

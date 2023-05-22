@@ -19,4 +19,4 @@ Content-Type: application/json
 ### user auth
 GET {{address}}/api/test/auth
 Content-Type: application/json
-Authorization: hello
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwidXNlcm5hbWUiOiJ0ZXN0ZXIiLCJpYXQiOjE2ODQ3MzgxNDAsImV4cCI6MTY4NDc0Mjk0MH0.KqXwiZmq8qYiv_C2M1aNsOs6XMGd4zc5L9e_9__ctfSGJYJO5GYozZdrW27PsTLsLaWpeBIOU1T-5oKIUmUhnw
