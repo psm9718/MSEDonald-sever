@@ -1,5 +1,7 @@
 package com.msedonald.auth;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +11,8 @@ import org.springframework.stereotype.Component;
 import javax.crypto.SecretKey;
 import java.util.Base64;
 import java.util.Date;
+
+import static org.apache.tomcat.util.codec.binary.Base64.decodeBase64;
 
 @Slf4j
 @Component
@@ -34,5 +38,20 @@ public class JwtProvider {
                 .setExpiration(expiryDate)
                 .signWith(key)
                 .compact();
+    }
+
+    public Long getUserIdFromJwt(String authToken) {
+        return Long.parseLong(getClaimsJws(authToken).getBody().getSubject());
+    }
+
+    public String getUsernameFromJwt(String authToken) {
+        return getClaimsJws(authToken).getBody().get("username", String.class);
+    }
+
+    private Jws<Claims> getClaimsJws(String authToken) {
+        return Jwts.parserBuilder()
+                .setSigningKey(decodeBase64(jwtSecret))
+                .build()
+                .parseClaimsJws(authToken);
     }
 }
