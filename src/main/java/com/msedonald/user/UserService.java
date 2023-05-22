@@ -1,5 +1,6 @@
 package com.msedonald.user;
 
+import com.msedonald.auth.JwtProvider;
 import com.msedonald.user.data.UserLogin;
 import com.msedonald.user.data.UserSave;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Slf4j
 @Service
@@ -17,6 +17,7 @@ import java.util.UUID;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final JwtProvider jwtProvider;
 
     @Transactional
     public void save(UserSave userSave) {
@@ -30,7 +31,7 @@ public class UserService {
 
         log.info("> user {} login to server [ {} ]", user.getUsername(), user.getId());
 
-        return String.valueOf(UUID.randomUUID());
+        return jwtProvider.generateAccessToken(user.getId(), user.getUsername());
     }
 
     public void expire(String accessToken) {
