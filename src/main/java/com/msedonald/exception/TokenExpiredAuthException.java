@@ -1,9 +1,9 @@
 package com.msedonald.exception;
 
-public class TokenExpiredException extends UserException {
+public class TokenExpiredAuthException extends UserAuthException {
     private static final String MESSAGE = "토큰이 만료되었습니다.";
 
-    public TokenExpiredException() {
+    public TokenExpiredAuthException() {
         super(MESSAGE);
     }
 }

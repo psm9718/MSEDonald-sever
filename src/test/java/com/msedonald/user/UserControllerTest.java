@@ -1,7 +1,7 @@
 package com.msedonald.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.msedonald.exception.UserNotFoundException;
+import com.msedonald.exception.UserNotFoundAuthException;
 import com.msedonald.user.data.UserLogin;
 import com.msedonald.user.data.UserSave;
 import org.junit.jupiter.api.DisplayName;
@@ -50,7 +50,7 @@ class UserControllerTest {
                 .andDo(print());
 
         User user = userRepository.findByUsernameAndPassword(userSave.username(), userSave.password())
-                .orElseThrow(UserNotFoundException::new);
+                .orElseThrow(UserNotFoundAuthException::new);
         assertThat(user.getUsername()).isEqualTo(userSave.username());
     }
 

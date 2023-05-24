@@ -1,9 +1,9 @@
 package com.msedonald.exception;
 
-public class UnAuthorizedException extends UserException {
+public class UnAuthorizedAuthException extends UserAuthException {
     private static final String MESSAGE = "인증되지 않은 접근입니다.";
 
-    public UnAuthorizedException() {
+    public UnAuthorizedAuthException() {
         super(MESSAGE);
     }
 }

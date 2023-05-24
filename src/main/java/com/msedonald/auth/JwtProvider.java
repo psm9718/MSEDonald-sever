@@ -1,7 +1,7 @@
 package com.msedonald.auth;
 
-import com.msedonald.exception.TokenExpiredException;
-import com.msedonald.exception.UnAuthorizedException;
+import com.msedonald.exception.TokenExpiredAuthException;
+import com.msedonald.exception.UnAuthorizedAuthException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
@@ -54,11 +54,11 @@ public class JwtProvider {
             return true;
         } catch (ExpiredJwtException e) {
             log.info(">> Your Access Token is expired");
-            throw new TokenExpiredException();
+            throw new TokenExpiredAuthException();
         } catch (JwtException | IllegalArgumentException e) {
             log.error("jwtException : {}", e.getMessage());
         }
-        throw new UnAuthorizedException();
+        throw new UnAuthorizedAuthException();
     }
 
     private Jws<Claims> getClaimsJws(String authToken) {
