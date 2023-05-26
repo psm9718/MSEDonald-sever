@@ -2,7 +2,6 @@ package com.msedonald.socket;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.msedonald.exception.MessageSendingException;
-import com.msedonald.socket.data.MessageDTO;
 import com.msedonald.socket.data.PlayerInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +12,6 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
