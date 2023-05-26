@@ -1,11 +1,16 @@
 package com.msedonald.user;
 
+import com.msedonald.result.Result;
 import com.msedonald.user.data.UserSave;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+import static jakarta.persistence.CascadeType.ALL;
 
 @Entity
 @Table(name = "users")
@@ -20,6 +25,9 @@ public class User {
     private String username;
 
     private String password;
+
+    @OneToMany(mappedBy = "user", cascade = ALL)
+    private List<Result> results;
 
     @Builder
     public User(String username, String password) {

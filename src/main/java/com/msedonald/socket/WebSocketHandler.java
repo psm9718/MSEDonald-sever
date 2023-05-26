@@ -1,7 +1,9 @@
 package com.msedonald.socket;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.msedonald.exception.MessageSendingException;
 import com.msedonald.socket.data.MessageDTO;
+import com.msedonald.socket.data.PlayerInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -29,23 +31,25 @@ public class WebSocketHandler extends TextWebSocketHandler {
         sessions.put(sessionId, session);
         log.info("session start : {}", sessionId);
 
-        MessageDTO messageDTO = MessageDTO.builder()
-                .token("player_joined")
-                .timestamp(LocalDateTime.now())
-                .data("Let's start game!")
-                .build();
-
-        sessions.values().forEach(s -> {
-                    try {
-                        if (!s.getId().equals(sessionId)) {
-                            s.sendMessage(new TextMessage(objectMapper.writeValueAsString(messageDTO)));
-                            log.info("> send welcome message to user {} [ {} ]", s.getId(), s.getUri());
-                        }
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-        );
+//        MessageDTO messageDTO = MessageDTO.builder()
+//                .token("player_joined")
+//                .timestamp(LocalDateTime.now())
+//                .build();
+        publishMessage(objectMapper.writeValueAsString(PlayerInfo.builder()
+                .move_x(0)
+                .move_z(0)
+                .build()));
+//        sessions.values().forEach(s -> {
+//                    try {
+//                        if (!s.getId().equals(sessionId)) {
+//                            s.sendMessage(new TextMessage(objectMapper.writeValueAsString(messageDTO)));
+//                            log.info("> send welcome message to other users {} [ {} ]", s.getId(), s.getUri());
+//                        }
+//                    } catch (IOException e) {
+//                        throw new MessageSendingException();
+//                    }
+//                }
+//        );
     }
 
     @Override
@@ -53,19 +57,9 @@ public class WebSocketHandler extends TextWebSocketHandler {
         String payload = message.getPayload();
         log.info("> payload {}", payload);
 
-        MessageDTO messageDTO = objectMapper.readValue(payload, MessageDTO.class);
-        log.info("> session : {} , user : {} ({})",
-                session.getId(), messageDTO.token(), messageDTO.timestamp());
+        PlayerInfo playerInfo = objectMapper.readValue(payload, PlayerInfo.class);
 
-        sessions.values().forEach(s -> {
-                    try {
-                        s.sendMessage(new TextMessage(objectMapper.writeValueAsString(messageDTO)));
-                        log.info(">> message sent to user {} [ {} ]", s.getId(), s.getUri());
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-        );
+        publishMessage(objectMapper.writeValueAsString(playerInfo));
     }
 
     @Override
@@ -77,20 +71,23 @@ public class WebSocketHandler extends TextWebSocketHandler {
         String sessionId = session.getId();
         sessions.remove(sessionId);
 
-        MessageDTO messageDTO = MessageDTO.builder()
-                .token("testToken")
-                .timestamp(LocalDateTime.now())
-                .data("Good bye!")
-                .build();
-
-        sessions.values().forEach(s -> {
-            try {
-                s.sendMessage(new TextMessage(objectMapper.writeValueAsString(messageDTO)));
-                log.info(">> message sent to user {} [ {} ]", s.getId(), s.getUri());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        publishMessage(objectMapper.writeValueAsString(PlayerInfo.builder()
+                .move_x(0)
+                .move_z(0)
+                .build()));
         log.info("session {} successfully removed", sessionId);
+    }
+
+    private void publishMessage(String string) {
+        sessions.values().forEach(s -> {
+                    try {
+                        s.sendMessage(new TextMessage(string));
+                        log.info(">> message sent to user {} [ {} ]", s.getId(), s.getUri());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        throw new MessageSendingException();
+                    }
+                }
+        );
     }
 }
