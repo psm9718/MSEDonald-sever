@@ -29,35 +29,21 @@ public class WebSocketHandler extends TextWebSocketHandler {
         sessions.put(sessionId, session);
         log.info("session start : {}", sessionId);
 
-//        MessageDTO messageDTO = MessageDTO.builder()
-//                .token("player_joined")
-//                .timestamp(LocalDateTime.now())
-//                .build();
-        publishMessage(objectMapper.writeValueAsString(PlayerInfo.builder()
+        sendMessage(sessionId, PlayerInfo.builder()
                 .move_x(0)
                 .move_z(0)
-                .build()));
-//        sessions.values().forEach(s -> {
-//                    try {
-//                        if (!s.getId().equals(sessionId)) {
-//                            s.sendMessage(new TextMessage(objectMapper.writeValueAsString(messageDTO)));
-//                            log.info("> send welcome message to other users {} [ {} ]", s.getId(), s.getUri());
-//                        }
-//                    } catch (IOException e) {
-//                        throw new MessageSendingException();
-//                    }
-//                }
-//        );
+                .build());
     }
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+        String sessionId = session.getId();
         String payload = message.getPayload();
         log.info("> payload {}", payload);
 
         PlayerInfo playerInfo = objectMapper.readValue(payload, PlayerInfo.class);
 
-        publishMessage(objectMapper.writeValueAsString(playerInfo));
+        sendMessage(sessionId, playerInfo);
     }
 
     @Override
@@ -80,9 +66,23 @@ public class WebSocketHandler extends TextWebSocketHandler {
         sessions.values().forEach(s -> {
                     try {
                         s.sendMessage(new TextMessage(string));
-                        log.info(">> message sent to user {} [ {} ]", s.getId(), s.getUri());
+                        log.info(">> message broadcast to user {} [ {} ]", s.getId(), s.getUri());
                     } catch (IOException e) {
                         e.printStackTrace();
+                        throw new MessageSendingException();
+                    }
+                }
+        );
+    }
+
+    private void sendMessage(String sessionId, PlayerInfo playerInfo) {
+        sessions.values().forEach(s -> {
+                    try {
+                        if (!s.getId().equals(sessionId)) {
+                            s.sendMessage(new TextMessage(objectMapper.writeValueAsString(playerInfo)));
+                            log.info(">> message sent to user {} [ {} ]", s.getId(), s.getUri());
+                        }
+                    } catch (IOException e) {
                         throw new MessageSendingException();
                     }
                 }
