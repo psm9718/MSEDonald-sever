@@ -2,7 +2,6 @@ package com.msedonald.socket;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.msedonald.exception.MessageSendingException;
-import com.msedonald.socket.data.PlayerInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -29,10 +28,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
         sessions.put(sessionId, session);
         log.info("session start : {}", sessionId);
 
-        sendMessage(sessionId, PlayerInfo.builder()
-                .move_x(0)
-                .move_z(0)
-                .build());
+        sendMessage(sessionId, new TextMessage("Welcome!"));
     }
 
     @Override
@@ -41,9 +37,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
         String payload = message.getPayload();
         log.info("> payload {}", payload);
 
-        PlayerInfo playerInfo = objectMapper.readValue(payload, PlayerInfo.class);
-
-        sendMessage(sessionId, playerInfo);
+        sendMessage(sessionId, message);
     }
 
     @Override
@@ -55,10 +49,8 @@ public class WebSocketHandler extends TextWebSocketHandler {
         String sessionId = session.getId();
         sessions.remove(sessionId);
 
-        publishMessage(objectMapper.writeValueAsString(PlayerInfo.builder()
-                .move_x(0)
-                .move_z(0)
-                .build()));
+        sendMessage(sessionId, new TextMessage("Bye!"));
+
         log.info("session {} successfully removed", sessionId);
     }
 
@@ -75,11 +67,11 @@ public class WebSocketHandler extends TextWebSocketHandler {
         );
     }
 
-    private void sendMessage(String sessionId, PlayerInfo playerInfo) {
+    private void sendMessage(String sessionId, TextMessage message) {
         sessions.values().forEach(s -> {
                     try {
                         if (!s.getId().equals(sessionId)) {
-                            s.sendMessage(new TextMessage(objectMapper.writeValueAsString(playerInfo)));
+                            s.sendMessage(message);
                             log.info(">> message sent to user {} [ {} ]", s.getId(), s.getUri());
                         }
                     } catch (IOException e) {
