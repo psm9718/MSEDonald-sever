@@ -3,24 +3,27 @@ package com.msedonald.socket;
 import com.msedonald.auth.AuthInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.socket.config.annotation.EnableWebSocket;
-import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
-import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
+import org.springframework.messaging.simp.config.MessageBrokerRegistry;
+import org.springframework.web.socket.config.annotation.*;
 
 @Configuration
-@EnableWebSocket
+@EnableWebSocketMessageBroker
 @RequiredArgsConstructor
-public class WebSocketConfig implements WebSocketConfigurer {
+public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
-    private final WebSocketHandler webSocketHandler;
     private final AuthInterceptor authInterceptor;
 
     @Override
-    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        // endpoint : /api/socket
-        // ex)localhost:8080/api/socket for WebSocket Request
-        registry.addHandler(webSocketHandler, "/api/socket")
+    public void configureMessageBroker(MessageBrokerRegistry registry) {
+        registry.enableSimpleBroker("/topic"); // 토픽을 구독할 수 있도록 설정합니다.
+        registry.setApplicationDestinationPrefixes("/app"); // 클라이언트가 메시지를 송신할 수 있는 경로를 설정합니다.
+    }
+
+    @Override
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
+        registry.addEndpoint("/api/socket")
                 .addInterceptors(authInterceptor)
-                .setAllowedOrigins("*");
+                .setAllowedOrigins("*")
+                .withSockJS(); // SockJS를 사용하여 대체 옵션을 제공합니다.
     }
 }
