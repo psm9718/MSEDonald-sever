@@ -1,9 +1,4 @@
 package com.msedonald.socket.data;
 
-import lombok.Builder;
-
-import java.time.LocalDateTime;
-
-@Builder
-public record MessageDTO(LocalDateTime timestamp, String token, Location location) {
+public record MessageDTO(String channelId, String token, Location location) {
 }

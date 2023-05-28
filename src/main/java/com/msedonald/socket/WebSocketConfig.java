@@ -15,15 +15,15 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.enableSimpleBroker("/topic"); // 토픽을 구독할 수 있도록 설정합니다.
-        registry.setApplicationDestinationPrefixes("/app"); // 클라이언트가 메시지를 송신할 수 있는 경로를 설정합니다.
+        registry.enableSimpleBroker("/sub");
+        registry.setApplicationDestinationPrefixes("/pub");
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/api/socket")
+        registry.addEndpoint("/ws")
                 .addInterceptors(authInterceptor)
-                .setAllowedOrigins("*")
-                .withSockJS(); // SockJS를 사용하여 대체 옵션을 제공합니다.
+                .setAllowedOrigins("*");
+//                .withSockJS(); // SockJS를 사용하여 대체 옵션을 제공합니다.
     }
 }
