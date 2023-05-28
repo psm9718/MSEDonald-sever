@@ -26,7 +26,7 @@ public class AuthInterceptor implements HandshakeInterceptor {
 
         log.info("header : {}", token);
 
-        // Validate the token and obtain the UserAuth object
+        // Validate the token and obtain the UserAuth object (not going to use in demo application)
 //        if (!jwtProvider.isValidateToken(token)) {
 //            throw new UnAuthorizedException();
 //        }

@@ -46,12 +46,14 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+
         String sessionId = session.getId();
+        log.info("> session {} try to remove [{}]", sessionId, status);
         sessions.remove(sessionId);
 
         sendMessage(sessionId, new TextMessage("Bye!"));
 
-        log.info("session {} successfully removed", sessionId);
+        log.info("> session {} successfully removed", sessionId);
     }
 
     private void publishMessage(String string) {

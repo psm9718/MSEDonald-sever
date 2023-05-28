@@ -1,5 +1,6 @@
 package com.msedonald.result;
 
+import com.msedonald.exception.UserNotFoundAuthException;
 import com.msedonald.result.data.ResultResponse;
 import com.msedonald.result.data.ResultSave;
 import com.msedonald.user.User;
@@ -22,7 +23,7 @@ public class ResultService {
     public void save(ResultSave resultSave) {
 
         User user = userRepository.findById(resultSave.userId())
-                .orElseThrow(() -> new RuntimeException("User Not Found"));
+                .orElseThrow(UserNotFoundAuthException::new);
 
         resultRepository.save(
                 Result.builder()
