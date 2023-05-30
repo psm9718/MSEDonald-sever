@@ -3,27 +3,24 @@ package com.msedonald.socket;
 import com.msedonald.auth.AuthInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.messaging.simp.config.MessageBrokerRegistry;
-import org.springframework.web.socket.config.annotation.*;
+import org.springframework.web.socket.config.annotation.EnableWebSocket;
+import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
+import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
 @Configuration
-@EnableWebSocketMessageBroker
+@EnableWebSocket
 @RequiredArgsConstructor
-public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+public class WebSocketConfig implements WebSocketConfigurer {
 
+    private final WebSocketHandler webSocketHandler;
     private final AuthInterceptor authInterceptor;
 
     @Override
-    public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.enableSimpleBroker("/sub");
-        registry.setApplicationDestinationPrefixes("/pub");
-    }
-
-    @Override
-    public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/ws")
+    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+        // endpoint : /api/socket
+        // ex)localhost:8080/api/socket for WebSocket Request
+        registry.addHandler(webSocketHandler, "/api/socket")
                 .addInterceptors(authInterceptor)
                 .setAllowedOrigins("*");
-//                .withSockJS(); // SockJS를 사용하여 대체 옵션을 제공합니다.
     }
 }
