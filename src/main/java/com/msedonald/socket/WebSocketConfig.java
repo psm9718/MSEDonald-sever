@@ -17,7 +17,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        // endpoint : /api/socket
+        // end point : /api/socket
         // ex)ws://localhost:8080/api/socket for WebSocket Request
         registry.addHandler(webSocketHandler, "/api/socket")
                 .addInterceptors(authInterceptor)
