@@ -2,12 +2,9 @@ package com.msedonald.socket;
 
 import com.msedonald.auth.LoginUser;
 import com.msedonald.auth.UserAuth;
-import com.msedonald.socket.data.MessageDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
