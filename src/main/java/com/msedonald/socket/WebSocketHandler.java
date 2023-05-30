@@ -28,8 +28,8 @@ public class WebSocketHandler extends TextWebSocketHandler {
         sessions.put(sessionId, session);
         log.info("session start : {}", sessionId);
 
-//        sendMessage(sessionId, new TextMessage("Welcome!"));
-        publishMessage(new TextMessage("welcome!"));
+        sendMessage(sessionId, new TextMessage("Welcome!"));
+//        publishMessage(new TextMessage("welcome!"));
     }
 
     @Override
@@ -38,12 +38,13 @@ public class WebSocketHandler extends TextWebSocketHandler {
         String payload = message.getPayload();
 //        log.info("> payload {}", payload);
 
-//        sendMessage(sessionId, message);
-        publishMessage(message);
+        sendMessage(sessionId, message);
+//        publishMessage(message);
     }
 
     @Override
     public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
+        log.warn("transport error {} : {}",session.getId(), exception);
     }
 
     @Override
@@ -53,8 +54,8 @@ public class WebSocketHandler extends TextWebSocketHandler {
         log.info("> session {} try to remove [{}]", sessionId, status);
         sessions.remove(sessionId);
 
-//        sendMessage(sessionId, new TextMessage("Bye!"));
-        publishMessage(new TextMessage("bye!"));
+        sendMessage(sessionId, new TextMessage("Bye!"));
+//        publishMessage(new TextMessage("bye!"));
         log.info("> session {} successfully removed", sessionId);
     }
 
