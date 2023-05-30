@@ -25,11 +25,11 @@ public class GameController {
 //        simpMessageSendingOperations.convertAndSend("/sub", message);
 //    }
 
-    @MessageMapping("/game")
-    public void handleGameMessage(@Payload String payload) {
-        log.info("Game message received: {}", payload);
-        simpMessageSendingOperations.convertAndSend("/sub", payload);
-    }
+//    @MessageMapping("/game")
+//    public void handleGameMessage(@Payload String payload) {
+//        log.info("Game message received: {}", payload);
+//        simpMessageSendingOperations.convertAndSend("/sub", payload);
+//    }
 
     @GetMapping("/api/test")
     @Operation(summary = "test api", description = "response with String \"test api\" Response body ")
