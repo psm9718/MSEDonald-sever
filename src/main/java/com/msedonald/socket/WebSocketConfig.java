@@ -10,7 +10,7 @@ import org.springframework.web.socket.config.annotation.*;
 @EnableWebSocketMessageBroker
 @RequiredArgsConstructor
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
-
+    //for auth
     private final AuthInterceptor authInterceptor;
 
     @Override
