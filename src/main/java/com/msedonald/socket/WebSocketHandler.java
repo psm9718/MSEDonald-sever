@@ -28,7 +28,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
         sessions.put(sessionId, session);
         log.info("session start : {}", sessionId);
 
-        sendMessage(sessionId, new TextMessage("Welcome!"));
+//        sendMessage(sessionId, new TextMessage("Welcome!"));
 //        publishMessage(new TextMessage("welcome!"));
     }
 
@@ -54,7 +54,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
         log.info("> session {} try to remove [{}]", sessionId, status);
         sessions.remove(sessionId);
 
-        sendMessage(sessionId, new TextMessage("Bye!"));
+//        sendMessage(sessionId, new TextMessage("Bye!"));
 //        publishMessage(new TextMessage("bye!"));
         log.info("> session {} successfully removed", sessionId);
     }
