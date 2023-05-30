@@ -35,7 +35,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         String sessionId = session.getId();
         String payload = message.getPayload();
-        log.info("> payload {}", payload);
+//        log.info("> payload {}", payload);
 
         sendMessage(sessionId, message);
     }
