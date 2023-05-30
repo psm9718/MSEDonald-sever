@@ -62,7 +62,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
         sessions.values().forEach(s -> {
                     try {
                         s.sendMessage(message);
-                        log.info(">> message broadcast to user {} [ {} ]", s.getId(), s.getUri());
+                        log.info(">> message {} broadcast to user {}", message, s.getId());
                     } catch (IOException e) {
                         e.printStackTrace();
                         throw new MessageSendingException();
@@ -76,7 +76,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
                     try {
                         if (!s.getId().equals(sessionId)) {
                             s.sendMessage(message);
-                            log.info(">> message sent to user {} [ {} ]", s.getId(), s.getUri());
+                            log.info(">> message {} sent to user {}", message, s.getId());
                         }
                     } catch (IOException e) {
                         throw new MessageSendingException();
