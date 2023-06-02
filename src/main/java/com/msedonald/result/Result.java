@@ -1,5 +1,6 @@
 package com.msedonald.result;
 
+import com.msedonald.result.data.WinOrLose;
 import com.msedonald.user.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -7,6 +8,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.FetchType.LAZY;
 
 @Entity
@@ -25,9 +27,13 @@ public class Result {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Enumerated(STRING)
+    private WinOrLose winOrLose;
+
     @Builder
-    public Result(Long score, User user) {
+    public Result(Long score, User user, WinOrLose winOrLose) {
         this.score = score;
         this.user = user;
+        this.winOrLose = winOrLose;
     }
 }
