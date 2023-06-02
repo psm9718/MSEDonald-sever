@@ -6,3 +6,6 @@ Content-Type: application/json
   "userId": 1,
   "score": 1000
 }
+
+### Result List
+GET {{address}}/api/scores
