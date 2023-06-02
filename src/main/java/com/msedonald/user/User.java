@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static jakarta.persistence.CascadeType.ALL;
@@ -27,10 +28,10 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "user", cascade = ALL)
-    private List<Result> results;
+    private List<Result> results = new ArrayList<>();
 
     @Builder
-    public User(String username, String password) {
+    protected User(String username, String password) {
         this.username = username;
         this.password = password;
     }

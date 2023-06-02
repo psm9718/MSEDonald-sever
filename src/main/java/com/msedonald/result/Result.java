@@ -33,7 +33,16 @@ public class Result {
     @Builder
     public Result(Long score, User user, WinOrLose winOrLose) {
         this.score = score;
-        this.user = user;
+        setUser(user);
         this.winOrLose = winOrLose;
+    }
+
+    public void setUser(User user) {
+        if (this.user != null) {
+            user.getResults().remove(this);
+        }
+
+        this.user = user;
+        user.getResults().add(this);
     }
 }
