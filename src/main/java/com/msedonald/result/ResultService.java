@@ -7,11 +7,13 @@ import com.msedonald.result.data.ResultSave;
 import com.msedonald.user.User;
 import com.msedonald.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -37,8 +39,13 @@ public class ResultService {
         );
     }
 
-    public List<ResultResponse> getAllResults() {
-        return resultRepository.findAll().stream()
+    public List<ResultResponse> getResults(String token) {
+        log.info("> user {} try to get results", token);
+        Long userIdFromJwt = jwtProvider.getUserIdFromJwt(token);
+        User user = userRepository.findById(userIdFromJwt)
+                .orElseThrow(UserNotFoundAuthException::new);
+
+        return resultRepository.findTop5ByUserOrderByScoreDesc(user).stream()
                 .map(ResultResponse::new)
                 .toList();
     }

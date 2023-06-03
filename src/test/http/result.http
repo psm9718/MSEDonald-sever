@@ -3,10 +3,15 @@ POST {{address}}/api/scores
 Content-Type: application/json
 
 {
-  "token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwidXNlcm5hbWUiOiJ0ZXN0ZXIiLCJpYXQiOjE2ODU2ODY5OTksImV4cCI6MTY4NTY5MTc5OX0.giW8AEiZhIKR_E4RaJjly3BU_Fnw4klXcZJPntlOxmetzwhCo57boVoE5Qg1VSVdnQN1WvogQYhKBQvfVXcQSw",
+  "token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwidXNlcm5hbWUiOiJ0ZXN0ZXIiLCJpYXQiOjE2ODU4MDE4MjMsImV4cCI6MTY4NTgwNjYyM30.u1qU8j3uGSzt-9NSPOZboVhwdYoXluHH5EybCPuSrOTHXXyArwpObyjndw-lyR9PkzePD0qbw0S0qOmwGCeCaw",
   "score": 1000,
   "winOrLose" : "win"
 }
 
 ### Result List
 GET {{address}}/api/scores
+Content-Type: application/json
+
+{
+  "token" : "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwidXNlcm5hbWUiOiJ0ZXN0ZXIiLCJpYXQiOjE2ODU4MDE4MjMsImV4cCI6MTY4NTgwNjYyM30.u1qU8j3uGSzt-9NSPOZboVhwdYoXluHH5EybCPuSrOTHXXyArwpObyjndw-lyR9PkzePD0qbw0S0qOmwGCeCaw"
+}
