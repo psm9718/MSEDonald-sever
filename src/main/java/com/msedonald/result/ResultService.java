@@ -41,7 +41,7 @@ public class ResultService {
         User user = userRepository.findById(id)
                 .orElseThrow(UserNotFoundAuthException::new);
 
-        return resultRepository.findTop5ByUserOrderByScoreDesc(user).stream()
+        return resultRepository.findTop5ByUserOrderByCreatedDateDesc(user).stream()
                 .map(ResultResponse::new)
                 .toList();
     }

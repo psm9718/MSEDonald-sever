@@ -1,6 +1,7 @@
 package com.msedonald.result;
 
 import com.msedonald.result.data.WinOrLose;
+import com.msedonald.timestamp.BaseTimeEntity;
 import com.msedonald.user.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -15,7 +16,7 @@ import static jakarta.persistence.FetchType.LAZY;
 @Getter
 @Table(name = "results")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Result {
+public class Result extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
