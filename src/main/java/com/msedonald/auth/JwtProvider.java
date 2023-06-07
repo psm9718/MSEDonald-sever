@@ -1,7 +1,7 @@
 package com.msedonald.auth;
 
 import com.msedonald.exception.TokenExpiredAuthException;
-import com.msedonald.exception.UnAuthorizedAuthException;
+import com.msedonald.exception.UnAuthorizedException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
@@ -58,7 +58,7 @@ public class JwtProvider {
         } catch (JwtException | IllegalArgumentException e) {
             log.error("jwtException : {}", e.getMessage());
         }
-        throw new UnAuthorizedAuthException();
+        throw new UnAuthorizedException();
     }
 
     private Jws<Claims> getClaimsJws(String authToken) {

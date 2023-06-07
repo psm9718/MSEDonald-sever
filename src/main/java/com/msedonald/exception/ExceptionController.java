@@ -28,6 +28,4 @@ public class ExceptionController {
                 .errorMessage(ex.getMessage())
                 .build();
     }
-
-
 }

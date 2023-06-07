@@ -54,6 +54,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
                             s.sendMessage(message);
                         }
                     } catch (IOException e) {
+                        log.error("Message sending error: {}", e.getMessage());
                         throw new MessageSendingException();
                     }
                 }
