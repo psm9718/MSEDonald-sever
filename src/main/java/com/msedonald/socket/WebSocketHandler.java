@@ -30,8 +30,6 @@ public class WebSocketHandler extends TextWebSocketHandler {
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) {
         String sessionId = session.getId();
-        log.info("> payload {}", message.getPayload());
-
         sendMessage(sessionId, message);
     }
 
@@ -54,7 +52,6 @@ public class WebSocketHandler extends TextWebSocketHandler {
                     try {
                         if (!s.getId().equals(sessionId)) {
                             s.sendMessage(message);
-                            log.info(">> message {} sent to user {}", message, s.getId());
                         }
                     } catch (IOException e) {
                         throw new MessageSendingException();
