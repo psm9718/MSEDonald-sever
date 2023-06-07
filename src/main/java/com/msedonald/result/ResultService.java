@@ -1,6 +1,5 @@
 package com.msedonald.result;
 
-import com.msedonald.auth.JwtProvider;
 import com.msedonald.exception.UserNotFoundAuthException;
 import com.msedonald.result.data.ResultResponse;
 import com.msedonald.result.data.ResultSave;
@@ -19,15 +18,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ResultService {
 
-    private final JwtProvider jwtProvider;
     private final UserRepository userRepository;
     private final ResultRepository resultRepository;
 
     @Transactional
-    public void save(ResultSave resultSave) {
+    public void save(Long id, ResultSave resultSave) {
 
-        Long userIdFromJwt = jwtProvider.getUserIdFromJwt(resultSave.token());
-        User user = userRepository.findById(userIdFromJwt)
+        User user = userRepository.findById(id)
                 .orElseThrow(UserNotFoundAuthException::new);
 
         resultRepository.save(
@@ -39,10 +36,9 @@ public class ResultService {
         );
     }
 
-    public List<ResultResponse> getResults(String token) {
-        log.info("> user {} try to get results", token);
-        Long userIdFromJwt = jwtProvider.getUserIdFromJwt(token);
-        User user = userRepository.findById(userIdFromJwt)
+    public List<ResultResponse> getResults(Long id) {
+        log.info("> user {} try to get results", id);
+        User user = userRepository.findById(id)
                 .orElseThrow(UserNotFoundAuthException::new);
 
         return resultRepository.findTop5ByUserOrderByScoreDesc(user).stream()
