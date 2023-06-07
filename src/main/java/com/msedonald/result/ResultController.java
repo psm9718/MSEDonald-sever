@@ -1,6 +1,7 @@
 package com.msedonald.result;
 
-import com.msedonald.result.data.AuthUser;
+import com.msedonald.auth.LoginUser;
+import com.msedonald.auth.UserAuth;
 import com.msedonald.result.data.ResultResponse;
 import com.msedonald.result.data.ResultSave;
 import io.swagger.v3.oas.annotations.Operation;
@@ -19,13 +20,13 @@ public class ResultController {
 
     @PostMapping("/api/scores")
     @Operation(summary = "save game result", description = "save score (User Id will be unnecessary after auth)")
-    public void saveScore(@RequestBody ResultSave resultSave) {
-        resultService.save(resultSave);
+    public void saveScore(@LoginUser UserAuth userAuth, @RequestBody ResultSave resultSave) {
+        resultService.save(userAuth.getId(), resultSave);
     }
 
     @PostMapping("/api/results")
     @Operation(summary = "get total results", description = "Get entire results JSON Response Body")
-    public List<ResultResponse> getResults(@RequestBody AuthUser authUser) {
-        return resultService.getResults(authUser.token());
+    public List<ResultResponse> getResults(@RequestBody UserAuth userAuth) {
+        return resultService.getResults(userAuth.getId());
     }
 }
