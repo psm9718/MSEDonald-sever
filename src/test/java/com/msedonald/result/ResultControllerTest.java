@@ -125,16 +125,16 @@ class ResultControllerTest {
 
         resultRepository.save(Result.builder()
                 .user(user)
-                .score(200L)
-                .winOrLose(LOSE)
-                .build());
-
-        resultRepository.save(Result.builder()
-                .user(user)
                 .score(700L)
                 .winOrLose(WIN)
                 .build()
         );
+        resultRepository.save(Result.builder()
+                .user(user)
+                .score(200L)
+                .winOrLose(LOSE)
+                .build());
+
 
         //expected
         mockMvc.perform(get("/api/scores")
@@ -143,9 +143,9 @@ class ResultControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(2))) // Check the size of the array
-                .andExpect(jsonPath("$[1].score").value(200))
-                .andExpect(jsonPath("$[1].username").value(user.getUsername()))
-                .andExpect(jsonPath("$[1].winOrLose").value(LOSE.toString().toLowerCase()))
+                .andExpect(jsonPath("$[0].score").value(200))
+                .andExpect(jsonPath("$[0].username").value(user.getUsername()))
+                .andExpect(jsonPath("$[0].winOrLose").value(LOSE.toString().toLowerCase()))
                 .andDo(print());
     }
 
