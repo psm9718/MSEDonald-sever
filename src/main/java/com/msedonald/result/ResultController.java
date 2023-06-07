@@ -26,8 +26,8 @@ public class ResultController {
     }
 
     @GetMapping("/api/scores")
-    @Operation(summary = "get total results", description = "Get entire results JSON Response Body")
-    public List<ResultResponse> getResults(@RequestBody UserAuth userAuth) {
+    @Operation(summary = "get total results", description = "Get current 5 results JSON Response Body")
+    public List<ResultResponse> getResults(@LoginUser UserAuth userAuth) {
         return resultService.getResults(userAuth.getId());
     }
 }
