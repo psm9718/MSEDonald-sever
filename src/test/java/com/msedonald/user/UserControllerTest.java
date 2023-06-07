@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -30,7 +29,8 @@ class UserControllerTest {
     @Autowired
     ObjectMapper objectMapper;
 
-    @Autowired UserRepository userRepository;
+    @Autowired
+    UserRepository userRepository;
 
     @Test
     @DisplayName("user sign up")
@@ -69,7 +69,7 @@ class UserControllerTest {
                 .build();
 
         //expected
-        mockMvc.perform(get("/api/users")
+        mockMvc.perform(post("/api/users/login")
                         .contentType(APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(userLogin)))
                 .andExpect(status().isOk())

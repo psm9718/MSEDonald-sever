@@ -4,6 +4,7 @@ import com.msedonald.user.data.UserLogin;
 import com.msedonald.user.data.UserSave;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,12 +27,12 @@ public class UserController {
 
     @PostMapping("/api/users/login")
     @Operation(summary = "user login", description = "response with access token to auth")
-    public Map<String, String> login(@RequestBody UserLogin userLogin) {
+    public ResponseEntity<Map<String, String>> login(@RequestBody UserLogin userLogin) {
         String token = userService.login(userLogin);
         Map<String, String> responseMap = new HashMap<>();
         responseMap.put("access_token", token);
 
-        return responseMap;
+        return ResponseEntity.ok(responseMap);
     }
 
     @DeleteMapping("/api/users")
