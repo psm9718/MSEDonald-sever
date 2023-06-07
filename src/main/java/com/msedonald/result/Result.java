@@ -32,7 +32,7 @@ public class Result extends BaseTimeEntity {
     private WinOrLose winOrLose;
 
     @Builder
-    public Result(Long score, User user, WinOrLose winOrLose) {
+    protected Result(Long score, User user, WinOrLose winOrLose) {
         this.score = score;
         setUser(user);
         this.winOrLose = winOrLose;

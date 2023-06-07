@@ -1,6 +1,7 @@
 package com.msedonald.user;
 
 import com.msedonald.result.Result;
+import com.msedonald.timestamp.BaseTimeEntity;
 import com.msedonald.user.data.UserSave;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -17,7 +18,7 @@ import static jakarta.persistence.CascadeType.ALL;
 @Table(name = "users")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User {
+public class User extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +29,7 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "user", cascade = ALL)
-    private List<Result> results = new ArrayList<>();
+    private final List<Result> results = new ArrayList<>();
 
     @Builder
     protected User(String username, String password) {
