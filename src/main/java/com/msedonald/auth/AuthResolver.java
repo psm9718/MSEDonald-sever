@@ -1,6 +1,6 @@
 package com.msedonald.auth;
 
-import com.msedonald.exception.UnAuthorizedAuthException;
+import com.msedonald.exception.UnAuthorizedException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
@@ -29,7 +29,7 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
         log.info("auth: {}", authToken);
 
         if (authToken == null || authToken.isEmpty()) {
-            throw new UnAuthorizedAuthException();
+            throw new UnAuthorizedException();
         }
 
         if (jwtProvider.isValidateToken(authToken)) {
@@ -39,6 +39,6 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
                     .build();
         }
 
-        throw new UnAuthorizedAuthException();
+        throw new UnAuthorizedException();
     }
 }

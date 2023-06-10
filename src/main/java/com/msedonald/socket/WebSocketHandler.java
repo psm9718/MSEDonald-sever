@@ -1,6 +1,5 @@
 package com.msedonald.socket;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.msedonald.exception.MessageSendingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,54 +18,33 @@ import java.util.concurrent.ConcurrentHashMap;
 @RequiredArgsConstructor
 public class WebSocketHandler extends TextWebSocketHandler {
 
-    private final ObjectMapper objectMapper;
     private final Map<String, WebSocketSession> sessions = new ConcurrentHashMap<>();
 
     @Override
-    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+    public void afterConnectionEstablished(WebSocketSession session) {
         String sessionId = session.getId();
         sessions.put(sessionId, session);
         log.info("session start : {}", sessionId);
-
-        sendMessage(sessionId, new TextMessage("Welcome!"));
     }
 
     @Override
-    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+    protected void handleTextMessage(WebSocketSession session, TextMessage message) {
         String sessionId = session.getId();
-        String payload = message.getPayload();
-        log.info("> payload {}", payload);
-
         sendMessage(sessionId, message);
     }
 
     @Override
-    public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
+    public void handleTransportError(WebSocketSession session, Throwable exception) {
+        log.error("transport error {} : {}", session.getId(), exception);
     }
 
     @Override
-    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
 
         String sessionId = session.getId();
         log.info("> session {} try to remove [{}]", sessionId, status);
         sessions.remove(sessionId);
-
-        sendMessage(sessionId, new TextMessage("Bye!"));
-
         log.info("> session {} successfully removed", sessionId);
-    }
-
-    private void publishMessage(String string) {
-        sessions.values().forEach(s -> {
-                    try {
-                        s.sendMessage(new TextMessage(string));
-                        log.info(">> message broadcast to user {} [ {} ]", s.getId(), s.getUri());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        throw new MessageSendingException();
-                    }
-                }
-        );
     }
 
     private void sendMessage(String sessionId, TextMessage message) {
@@ -74,9 +52,9 @@ public class WebSocketHandler extends TextWebSocketHandler {
                     try {
                         if (!s.getId().equals(sessionId)) {
                             s.sendMessage(message);
-                            log.info(">> message sent to user {} [ {} ]", s.getId(), s.getUri());
                         }
                     } catch (IOException e) {
+                        log.error("Message sending error: {}", e.getMessage());
                         throw new MessageSendingException();
                     }
                 }

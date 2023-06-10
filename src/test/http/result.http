@@ -1,8 +1,15 @@
 ### Result save
 POST {{address}}/api/scores
 Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwidXNlcm5hbWUiOiJ0ZXN0ZXIiLCJpYXQiOjE2ODYxMDg4OTgsImV4cCI6MTY4NjExMzY5OH0.l0aEPkRRc5GTKr6JFLEtDniKvsXJGqEK6V28FimUCVe9pzzXZ3Fo7qdIqC1wOesTMMLubGQrqEjA20JrmtLs-Q
 
 {
-  "userId": 1,
-  "score": 1000
+  "token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwidXNlcm5hbWUiOiJ0ZXN0ZXIiLCJpYXQiOjE2ODYxMDg4OTgsImV4cCI6MTY4NjExMzY5OH0.l0aEPkRRc5GTKr6JFLEtDniKvsXJGqEK6V28FimUCVe9pzzXZ3Fo7qdIqC1wOesTMMLubGQrqEjA20JrmtLs-Q",
+  "score": 5000,
+  "winOrLose" : "win"
 }
+
+### Result List
+GET {{address}}/api/scores
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwidXNlcm5hbWUiOiJ0ZXN0ZXIiLCJpYXQiOjE2ODYxMDg4OTgsImV4cCI6MTY4NjExMzY5OH0.l0aEPkRRc5GTKr6JFLEtDniKvsXJGqEK6V28FimUCVe9pzzXZ3Fo7qdIqC1wOesTMMLubGQrqEjA20JrmtLs-Q
