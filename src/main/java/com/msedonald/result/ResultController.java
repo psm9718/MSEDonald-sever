@@ -26,6 +26,7 @@ public class ResultController {
     }
 
     @GetMapping("/api/scores")
+    @Operation(summary = "get current user's 5 game result", description = "Authorization header is necessary")
     public List<ResultResponse> getResults(@LoginUser UserAuth userAuth) {
         return resultService.getResults(userAuth.id());
     }
