@@ -21,7 +21,7 @@ public class GameController {
     @GetMapping("/api/test/auth")
     @Operation(summary = "test auth api", description = "test Auth, response with String \"authenticated access\" Response body ")
     public String testAuth(@LoginUser UserAuth userAuth) {
-        log.info("> auth access : {}", userAuth.getUsername());
+        log.info("> auth access : {}", userAuth.username());
         return "authenticated access";
     }
 }

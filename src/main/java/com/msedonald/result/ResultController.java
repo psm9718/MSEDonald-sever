@@ -22,12 +22,11 @@ public class ResultController {
     @PostMapping("/api/scores")
     @Operation(summary = "save game result", description = "save score (User Id will be unnecessary after auth)")
     public void saveScore(@LoginUser UserAuth userAuth, @RequestBody ResultSave resultSave) {
-        resultService.save(userAuth.getId(), resultSave);
+        resultService.save(userAuth.id(), resultSave);
     }
 
     @GetMapping("/api/scores")
-    @Operation(summary = "get total results", description = "Get current 5 results JSON Response Body")
     public List<ResultResponse> getResults(@LoginUser UserAuth userAuth) {
-        return resultService.getResults(userAuth.getId());
+        return resultService.getResults(userAuth.id());
     }
 }
