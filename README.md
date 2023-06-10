@@ -2,6 +2,10 @@
 
 Media SW Engineering Project Server Repository
 
+# Welcome to MSEDonald!
+
+https://github.com/psm9718/MSEDonald-sever/assets/60373714/7a1463df-185f-4eb3-9373-7bbd929f8d0d
+
 http://43.201.219.112:8080/
 
 ## Requirements
